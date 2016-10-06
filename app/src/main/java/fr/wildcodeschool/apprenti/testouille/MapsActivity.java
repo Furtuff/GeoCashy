@@ -83,8 +83,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             LocationListener locationListener = new LocationListener() {
                 public void onLocationChanged(Location location) {
                     // Called when a new location is found by the network location provider.
-                    makeUseOfNewLocation(location);
+
                 }
+
 
                 public void onStatusChanged(String provider, int status, Bundle extras) {}
 
@@ -93,7 +94,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 public void onProviderDisabled(String provider) {}
             };
 
-
+            locationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
             // Create a criteria object to retrieve provider
             Criteria criteria = new Criteria();
 
