@@ -79,23 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // Get LocationManager object from System Service LOCATION_SERVICE
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-            // Define a listener that responds to location updates
-            LocationListener locationListener = new LocationListener() {
-                public void onLocationChanged(Location location) {
-                    // Called when a new location is found by the network location provider.
 
-                }
-
-
-                public void onStatusChanged(String provider, int status, Bundle extras) {}
-
-                public void onProviderEnabled(String provider) {}
-
-                public void onProviderDisabled(String provider) {}
-            };
-
-            locationManager.requestLocationUpdates(
-                    LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
             // Create a criteria object to retrieve provider
             Criteria criteria = new Criteria();
 

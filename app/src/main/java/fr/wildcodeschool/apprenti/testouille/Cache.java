@@ -9,7 +9,10 @@ public class Cache {
     private Float lat;
     private Float lon;
 
-    public Cache(Float lat, Float lon,String hint) {
+    public Cache() {
+    }
+
+    public Cache(Float lat, Float lon, String hint) {
         this.hint = hint;
         this.lat = lat;
         this.lon = lon;
