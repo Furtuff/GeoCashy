@@ -27,12 +27,15 @@
         <activity
             android:name=".HintActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".MapsActivity"
-            android:screenOrientation="portrait">
-            </activity>
-        <service android:name=".Music"></service>
+        <activity
+            android:name=".MapsActivity"
+            android:screenOrientation="portrait"></activity>
 
-        <service android:name=".Music2"></service>
+        <service android:name=".Music" />
+        <service android:name=".Music2" />
+
+        <activity android:name=".VictoryActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 public class HintActivity extends AppCompatActivity {
@@ -90,8 +91,13 @@ public class HintActivity extends AppCompatActivity {
         }
         catch (MalformedURLException e){
             Log.d("MalformedURLException", e.toString());
-            Intent ficheIntent = new Intent(this,MapsActivity.class);
-            startActivity(ficheIntent);
+
+            Intent ficheIntent= new Intent();
+            ficheIntent = getIntent();
+            HashMap mouloud = (HashMap)ficheIntent.getSerializableExtra("hashmap");
+            Intent georges = new Intent(this,MapsActivity.class);
+            georges.putExtra("hashmap",mouloud);
+            startActivity(georges);
             this.finish();
         }
         catch (IOException e){
