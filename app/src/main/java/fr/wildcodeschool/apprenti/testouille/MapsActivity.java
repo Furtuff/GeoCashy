@@ -8,6 +8,8 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.WindowManager;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -35,6 +38,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private DatabaseReference mDatabase;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+        LatLng toulouse = new LatLng(43.601253, 1.442236);
+        CameraUpdate location = CameraUpdateFactory.newLatLngZoom(toulouse,15);
 
     }
 
@@ -78,6 +85,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
 
+        // musique dents de la mer
+        Intent svc=new Intent(this, Music.class);
+        startService(svc);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
@@ -127,9 +137,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        Intent ficheIntent = new Intent(this,HintActivity.class);
-        ficheIntent.putExtra(Constants.IMG_URL, marker.getSnippet());
-        startActivity(ficheIntent);
+       Intent svc=new Intent(this, Music.class);
+       stopService(svc);
+
+
+
+
+                Intent ficheIntent = new Intent(MapsActivity.this,HintActivity.class);
+                ficheIntent.putExtra(Constants.IMG_URL, marker.getSnippet());
+                startActivity(ficheIntent);
+
+
         return false;
+    }
+    protected void onResume(){
+        super.onResume();
+        startService(new Intent(this,Music.class));
+
+    }
+
+    protected void onDestroy(){
+        super.onDestroy();
+        stopService(new Intent(this,Music.class));
+
     }
 }

@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +25,7 @@ public class HintActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private String url;
-
+    int plop = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,11 @@ public class HintActivity extends AppCompatActivity {
         this.url = getIntent().getStringExtra(Constants.IMG_URL);
         AsyncCallWS task = new AsyncCallWS();
         task.execute();
+
+        // musique dents de la mer
+        Intent svc=new Intent(this, Music2.class);
+        startService(svc);
+
     }
 
     private class AsyncCallWS extends AsyncTask<Void, Void, Void> {
@@ -93,5 +100,14 @@ public class HintActivity extends AppCompatActivity {
             startActivity(ficheIntent);
             this.finish();
         }
+    }
+    protected void onResume(){
+        super.onResume();
+        startService(new Intent(this,Music2.class));
+
+    }
+    protected void onDestroy(){
+        super.onDestroy();
+        stopService(new Intent(this,Music2.class));
     }
 }
